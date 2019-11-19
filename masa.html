@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .sirtlik {
+            background-color: burlywood;
+            height: 10px;
+            border-radius: 6px;
+            border: 1px solid #999;
+        }
+
+        .oturak {
+            background-color: burlywood;
+            height: 20px;
+            margin-top: 0px;
+            border-radius: 8px;
+            border: 1px solid #999;
+        }
+
+        .koltuk {
+            width: 30px !important;
+            height: 30px !important;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .masa {
+            position: absolute;
+            border-radius: 150px;
+            width: 150px;
+            height: 150px;
+            border: 1px solid #000;
+            background-color: #c79b6d;
+            text-align: center;
+            line-height: 4;
+            font-size: 38px;
+        }
+
+        .koltuk1 {
+            transform: rotate(0deg);
+        }
+
+        .koltuk2 {
+            transform: rotate(39deg);
+        }
+
+        .koltuk3 {
+            transform: rotate(71deg);
+        }
+
+        .koltuk4 {
+            transform: rotate(104deg);
+        }
+
+        .koltuk5 {
+            transform: rotate(139deg);
+        }
+
+        .koltuk6 {
+            transform: rotate(180deg);
+        }
+
+        .koltuk7 {
+            transform: rotate(-138deg);
+        }
+
+        .koltuk8 {
+            transform: rotate(-109deg);
+        }
+
+        .koltuk9 {
+            transform: rotate(-71deg);
+        }
+
+        .koltuk10 {
+            transform: rotate(-36deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="yuvarlak-masalar-alani"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            MasaVeSandalyeleriOlustur(1, 14, 150, 100);
+        });
+
+        function MasaVeSandalyeleriOlustur(baslangicMasaNo, kacAdet, baslangicX, baslangicY) {
+            for (let index = 0; index < kacAdet; index++) {
+                if (baslangicX >= window.innerWidth - 200) {
+                    baslangicY = baslangicY + 300;
+                    baslangicX = 150;
+                }
+                MasaOlustur(baslangicMasaNo, baslangicX, baslangicY);
+                baslangicMasaNo++;
+                baslangicX += 300;
+            }
+        }
+
+        function MasaOlustur(masaNo, masaX, masaY) {
+            var masa = document.createElement(`div`);
+            masa.id = `masa${masaNo}`;
+            masa.innerText = masaNo;
+            masa.classList.add("masa");
+            masa.style.top = `${masaY}px`; // top: 100px;
+            masa.style.left = `${masaX}px`; // left: 100px;
+            document.querySelector(".yuvarlak-masalar-alani").appendChild(masa);
+
+            SandalyeleriOlustur(masaNo, masaX, masaY);
+        }
+
+        function SandalyeleriOlustur(masaNo, x, y) {
+            var masaNo = masaNo;
+            var masaX = 150; //x;
+            var masaY = 100; //y;
+            for (let index = 0; index < 10; index++) {
+
+                var sandalye = document.createElement(`div`);
+                sandalyeNo = (masaNo * 10) + (index + 1) - 10;
+                sandalye.id = `sandalye${sandalyeNo}`;
+                sandalye.style.position = "absolute";
+                var konum = "";
+                if (index == 0) { konum = SandalyeKonumlar.Sandalye1(masaX, masaY); }
+                if (index == 1) { konum = SandalyeKonumlar.Sandalye2(masaX, masaY); }
+                if (index == 2) { konum = SandalyeKonumlar.Sandalye3(masaX, masaY); }
+                if (index == 3) { konum = SandalyeKonumlar.Sandalye4(masaX, masaY); }
+                if (index == 4) { konum = SandalyeKonumlar.Sandalye5(masaX, masaY); }
+                if (index == 5) { konum = SandalyeKonumlar.Sandalye6(masaX, masaY); }
+                if (index == 6) { konum = SandalyeKonumlar.Sandalye7(masaX, masaY); }
+                if (index == 7) { konum = SandalyeKonumlar.Sandalye8(masaX, masaY); }
+                if (index == 8) { konum = SandalyeKonumlar.Sandalye9(masaX, masaY); }
+                if (index == 9) { konum = SandalyeKonumlar.Sandalye10(masaX, masaY); }
+                sandalye.style.top = `${konum.y}px`;
+                sandalye.style.left = `${konum.x}px`;
+                sandalye.classList.add("koltuk", `koltuk${index + 1}`);
+                document.querySelector(`#masa${masaNo}`).appendChild(sandalye);
+
+                var queryElementName = `#sandalye${sandalyeNo}`;
+                var sirtlik = document.createElement(`div`);
+                sirtlik.classList.add("sirtlik");
+                document.querySelector(queryElementName).appendChild(sirtlik);
+
+                var oturak = document.createElement(`div`);
+                oturak.classList.add("oturak");
+                if (sandalyeNo > 99) { oturak.innerHTML = `<span class="" style="font-size: 16px; top: -9px; left: 3px; position: absolute;">${sandalyeNo}</span>`; }
+                else if (sandalyeNo > 9) { oturak.innerHTML = `<span class="" style="font-size: 16px; top: -9px; left: 8px; position: absolute;">${sandalyeNo}</span>`; }
+                else { oturak.innerHTML = `<span class="" style="font-size: 16px; top: -9px; left: 11px; position: absolute;">${sandalyeNo}</span>`; }
+                document.querySelector(queryElementName).appendChild(oturak);
+                sandalye.addEventListener("click", function (element) {
+                    var sandalyeId = element.currentTarget.id;                    
+                    for (let index = 0; index < document.querySelector(`#${sandalyeId}`).children.length; index++) {
+                        const element = document.querySelector(`#${sandalyeId}`).children[index];
+                        if (element.style.backgroundColor == "red") {
+                            element.style.backgroundColor = "burlywood";
+                        }
+                        else {
+                            element.style.backgroundColor = "red";
+                        }
+                    }
+                    // SANDALYE CLİCK EVENT BURAYA EKLENECEK.
+                });
+            }
+        }
+
+        class SandalyeKonumlar {
+            SandalyeKonumlar() {
+                this.x = 0;
+                this.y = 0;
+            }
+
+            static Sandalye1(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 90;
+                sandalye.y = masaY - 135;
+                return sandalye;
+            }
+            static Sandalye2(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 31;
+                sandalye.y = masaY - 115;
+                return sandalye;
+            }
+            static Sandalye3(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX;
+                sandalye.y = masaY - 71;
+                return sandalye;
+            }
+            static Sandalye4(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX + 2;
+                sandalye.y = masaY - 15;
+                return sandalye;
+            }
+            static Sandalye5(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 30;
+                sandalye.y = masaY + 34;
+                return sandalye;
+            }
+            static Sandalye6(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 90;
+                sandalye.y = masaY + 55;
+                return sandalye;
+            }
+            static Sandalye7(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 150;
+                sandalye.y = masaY + 34;
+                return sandalye;
+            }
+            static Sandalye8(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 182;
+                sandalye.y = masaY - 15;
+                return sandalye;
+            }
+            static Sandalye9(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 180;
+                sandalye.y = masaY - 70;
+                return sandalye;
+            }
+            static Sandalye10(masaX, masaY) {
+                var sandalye = Object.create(new SandalyeKonumlar);
+                sandalye.x = masaX - 149;
+                sandalye.y = masaY - 115;
+                return sandalye;
+            }
+
+        }
+    </script>
+</body>
+
+</html>
